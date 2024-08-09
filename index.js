@@ -37,7 +37,7 @@ async function run() {
     app.get('/products', async (req, res) => {
       const page = parseInt(req.query.page);
       const size = parseInt(req.query.size);
-      console.log('pagination:', page, size)
+      // console.log('pagination:', page, size)
       const result = await productCollection.find()
         .skip(page * size)
         .limit(size)
@@ -47,6 +47,7 @@ async function run() {
 
     app.post('/productByIds', async (req, res) => {
       const ids = req.body;
+      // console.log(ids)
       const idsWithObjectId = ids.map(id => new ObjectId(id))
       const query = {
         _id: {
