@@ -33,19 +33,19 @@ async function run() {
 
     const productCollection = client.db('emaJohnDB').collection('products');
 
+
     app.get('/products', async (req, res) => {
       const page = parseInt(req.query.page);
       const size = parseInt(req.query.size);
-
-      console.log('pagination query', page, size);
+      console.log('pagination:', page, size)
       const result = await productCollection.find()
-      .skip(page * size)
-      .limit(size)
-      .toArray();
+        .skip(page * size)
+        .limit(size)
+        .toArray();
       res.send(result);
     })
 
-    app.post('/productByIds', async(req, res) =>{
+    app.post('/productByIds', async (req, res) => {
       const ids = req.body;
       const idsWithObjectId = ids.map(id => new ObjectId(id))
       const query = {
